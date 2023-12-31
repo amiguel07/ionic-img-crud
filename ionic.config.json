@@ -1,0 +1,7 @@
+{
+  "name": "crudmysql",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
