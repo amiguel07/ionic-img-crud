@@ -1,0 +1,79 @@
+<ion-header >
+  <ion-toolbar >
+    <ion-icon name="close" slot="start" size="medium" color="medium" class="ion-padding" (click)="cancel()"></ion-icon>
+    <ion-title slot="start">{{ edit ? 'Editar cliente' : 'Agregar cliente'}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  class="ion-padding">
+  <form [formGroup]="registrarForm" (ngSubmit)="onSubmit()">
+
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <!-- Cliente_id -->
+      <ion-item style="display: none;">
+        <ion-label position="floating">Cliente_id</ion-label>
+        <ion-input type="text" formControlName="cliente_id"></ion-input>
+      </ion-item>
+      
+      <!-- Nombres -->
+      <ion-item>
+        <ion-label position="floating">Nombres</ion-label>
+        <ion-input formControlName="nombres" placeholder="Ingrese nombres"></ion-input>
+      </ion-item>
+      <ion-text *ngIf="nombres?.invalid && (nombres?.dirty || nombres?.touched)" color="danger">
+        <p *ngFor="let error of validation_messages.nombres" [hidden]="!(nombres && nombres.hasError(error.type))">{{ error.message }}</p>
+      </ion-text>
+
+      <!-- Apellidos -->
+      <ion-item>
+        <ion-label position="floating">Apellidos</ion-label>
+        <ion-input formControlName="apellidos" placeholder="Ingrese apellidos"></ion-input>
+      </ion-item>
+      <ion-text *ngIf="apellidos?.invalid && (apellidos?.dirty || apellidos?.touched)" color="danger">
+        <p *ngFor="let error of validation_messages.apellidos" [hidden]="!(apellidos && apellidos.hasError(error.type))">{{ error.message }}</p>
+      </ion-text>
+
+      <!-- RUC/DNI -->
+      <ion-item>
+        <ion-label position="floating">RUC/DNI</ion-label>
+        <ion-input formControlName="ruc_dni" placeholder="Ingrese RUC/DNI"></ion-input>
+      </ion-item>
+      <ion-text *ngIf="ruc_dni?.invalid && (ruc_dni?.dirty || ruc_dni?.touched)" color="danger">
+        <p *ngFor="let error of validation_messages.ruc_dni" [hidden]="!(ruc_dni && ruc_dni.hasError(error.type))">{{ error.message }}</p>
+      </ion-text>
+
+      <!-- Dirección -->
+      <ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input formControlName="direccion" placeholder="Ingrese dirección"></ion-input>
+      </ion-item>
+      <ion-text *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)" color="danger">
+        <p *ngFor="let error of validation_messages.direccion" [hidden]="!(direccion && direccion.hasError(error.type))">{{ error.message }}</p>
+      </ion-text>
+
+      <!-- Email -->
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input formControlName="email" placeholder="Ingrese correo electrónico"></ion-input>
+      </ion-item>
+      <ion-text *ngIf="email?.invalid && (email?.dirty || email?.touched)" color="danger">
+        <p *ngFor="let error of validation_messages.email" [hidden]="!(email && email.hasError(error.type))">{{ error.message }}</p>
+      </ion-text>
+
+      <!-- Imagen -->
+      <ion-item>
+        <ion-input formControlName="imagenURL" type="file" (change)="capturarFile($event)" accept="image/png, image/jpeg, image/webp"></ion-input>
+      </ion-item>
+
+      <ion-img *ngIf="previsualizacion"
+        [src]="previsualizacion" alt="imagen no cargada" class=""
+      ></ion-img>
+    </ion-list>
+
+    <!-- Botones de acción -->
+    <ion-button color="success" expand="full" type="submit" [disabled]="registrarForm.invalid">
+      {{ edit ? 'Actualizar' : 'Registrar' }}
+    </ion-button>
+
+  </form>
+</ion-content>
